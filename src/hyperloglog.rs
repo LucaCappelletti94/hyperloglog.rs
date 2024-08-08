@@ -42,6 +42,7 @@ use crate::HyperLogLogError;
 ///   Meunier.](http://algo.inria.fr/flajolet/Publications/FlFuGaMe07.pdf)
 ///
 #[derive(Clone, Debug, Serialize, Deserialize)]
+#[cfg_attr(feature = "mem_dbg", derive(mem_dbg::MemDbg, mem_dbg::MemSize))]
 pub struct HyperLogLogPF<H, B>
 where
     H: Hash + ?Sized,
@@ -204,6 +205,7 @@ mod tests {
     use core::hash::{BuildHasher, Hasher};
     use siphasher::sip::SipHasher13;
 
+    #[cfg_attr(feature = "mem_dbg", derive(mem_dbg::MemDbg, mem_dbg::MemSize))]
     struct PassThroughHasher(u64);
 
     impl Hasher for PassThroughHasher {
@@ -222,6 +224,7 @@ mod tests {
     }
 
     #[derive(Serialize, Deserialize)]
+    #[cfg_attr(feature = "mem_dbg", derive(mem_dbg::MemDbg, mem_dbg::MemSize))]
     struct PassThroughHasherBuilder;
 
     impl BuildHasher for PassThroughHasherBuilder {
@@ -233,6 +236,7 @@ mod tests {
     }
 
     #[derive(Serialize, Deserialize)]
+    #[cfg_attr(feature = "mem_dbg", derive(mem_dbg::MemDbg, mem_dbg::MemSize))]
     struct DefaultBuildHasher;
 
     impl BuildHasher for DefaultBuildHasher {
