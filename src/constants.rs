@@ -4060,3 +4060,26 @@ pub const BIAS_DATA: &[&[f64]] = &[
         -713.308999999892,
     ],
 ];
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_estimates_are_sorted() {
+        for (i, estimates) in RAW_ESTIMATE_DATA.iter().enumerate() {
+            let precision = i+4;
+            assert!(estimates.windows(2).all(|w| w[0] <= w[1]), "Estimates for precision {} is not sorted", precision);
+        }
+    }
+
+    #[test]
+    fn test_length_compatibility() {
+        assert_eq!(RAW_ESTIMATE_DATA.len(), 15);
+        for (i, (estimates, biases)) in RAW_ESTIMATE_DATA.iter().zip(BIAS_DATA.iter()).enumerate() {
+            let precision = i+4;
+            assert_eq!(estimates.len(), biases.len(), "Estimates and biases for precision {} have different lengths", precision);
+        }
+    }
+}
