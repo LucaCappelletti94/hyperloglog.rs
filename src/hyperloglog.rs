@@ -63,7 +63,7 @@ where
     // Minimum precision allowed.
     const MIN_PRECISION: u8 = 4;
     // Maximum precision allowed.
-    const MAX_PRECISION: u8 = 16;
+    const MAX_PRECISION: u8 = 18;
 
     /// Creates a new HyperLogLogPF instance.
     pub fn new(precision: u8, builder: B) -> Result<Self, HyperLogLogError> {
